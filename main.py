@@ -17,6 +17,8 @@ class Wonderland:
         # input 3 = test for audio
         # input 4 = connect to director
         # input 5 = integration test.
+
+        x = False
         while (True):
 
             # simulates pressin gone of the butttons on the User interface
@@ -24,7 +26,7 @@ class Wonderland:
             if (button_press == 4):
                 connection.conneted = True
             # if system connection it should run the fully integrated process, and then return to the idle state.
-            if (connection.connected == True and connection.executed == False):
+            if (connection.connected == True and x == False):
                 integration.start()
 
             if (button_press == 1):
