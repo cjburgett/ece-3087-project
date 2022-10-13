@@ -28,12 +28,15 @@ class Wonderland:
             # if system connection it should run the fully integrated process, and then return to the idle state.
             if (connection.connected == True and x == False):
                 integration.start()
+                break
 
             if (button_press == 1):
                 movement.start()
             elif (button_press == 2):
                 lights.start()
             elif (button_press == 3):
-                audio.start()
+                audio_test = True
+                audio.start(audio_test)
             elif (button_press == 5):
-                integration.start()
+                test_test = True
+                integration.start(test_test)
