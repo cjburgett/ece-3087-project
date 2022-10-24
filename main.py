@@ -21,7 +21,7 @@ while (start):
 
     # simulates pressin gone of the butttons on the User interface
 
-    button_press = int(input("Press a button 1 - 5: "))
+    button_press = int(input("Press a button 0 - 5: "))
     if (button_press == 4):
         connection.connected = True
     # if system connection it should run the fully integrated process, and then return to the idle state.
