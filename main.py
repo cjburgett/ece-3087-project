@@ -4,24 +4,30 @@ import lights
 import audio
 import connection
 import integration
-from gpiozero import Button, AngularServo
+import RPi.GPIO as GPIO
 from signal import pause
 
 # system powers up
 
 # this is esentially the idle state.
 # input 0 = no button pressed
-button_press = 0
+GPIO.setmode(GPIO.BCM)
+# GPIO.setwarnings(False)
 # input 1 = test for movement
-MoveBtn = Button(5)
+GPIO.setup(5, GPIO.IN)
+MoveBtn = GPIO.input(5)
 # input 2 = test for lights
-LightsBtn = Button(22)
+GPIO.setup(22, GPIO.IN)
+LightsBtn = GPIO.input(22)
 # input 3 = test for audio
-AudioBtn = Button(27)
+GPIO.setup(27, GPIO.IN)
+AudioBtn = GPIO.input(27)
 # input 4 = connect to director
-DirectorBtn = Button(17)
+GPIO.setup(17, GPIO.IN)
+DirectorBtn = GPIO.input(17)
 # input 5 = integration test.
-IntegrateBtn = Button(6)
+GPIO.setup(6, GPIO.IN)
+IntegrateBtn = GPIO.input(6)
 
 x = False
 start = True
@@ -30,27 +36,20 @@ while (start):
     # simulates pressin gone of the butttons on the User interface
 
     #    button_press = int(input("Press a button 0 - 5: "))
-    # button presses form UI
-    MoveBtn.when_pressed = button_press = 1
-    LightsBtn.when_pressed = button_press = 2
-    AudioBtn.when_pressed = button_press = 3
-    DirectorBtn.when_pressed = button_press = 4
-    IntegrateBtn.when_pressed = button_press = 5
 
-    if (button_press == 4):
+    if (DirectorBtn):
         connection.connected = True
     # if system connection it should run the fully integrated process, and then return to the idle state.
-    if (connection.connected == True and x == False):
-        ctest = False
-        integration.start(ctest)
+    #if (connection.connected == True and x == False):
+     #   ctest = False
+      #  integration.start(ctest)
 
-    if (button_press == 1):
+    if  (MoveBtn):
         movement.start()
-    elif (button_press == 2):
+    elif (LightsBtn):
         lights.start()
-    elif (button_press == 3):
-        audio_test = True
-        audio.start(audio_test)
-    elif (button_press == 5):
-        test_test = True
-        integration.start(test_test)
+    elif (AudioBtn):
+        audio.run()
+    elif (IntegrateBtn):
+        integration.start()
+
